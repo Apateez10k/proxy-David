@@ -9,11 +9,19 @@ const writeFile = util.promisify(fs.writeFile);
 
 const loadBundles = () => {
   const fetches = services.map((service) => {
-    const bundlePath = path.join(__dirname, `../dist/bundles/${service.name}.js`);
-    return fetch(service.bundleUrl)
+    const clientPath = path.join(__dirname, `../dist/bundles/${service.name}.js`);
+    const serverPath = path.join(__dirname, `./services/${service.name}.js`);
+
+    return fetch(service.clientUrl)
       .then(res => res.text())
-      .then(text => writeFile(bundlePath, text))
-      .then(() => require(bundlePath).default);
+      .then(text => writeFile(clientPath, text))
+      .then(() => fetch(service.serverUrl))
+      .then(res => res.text())
+      .then(text => writeFile(serverPath, text))
+      .then(() => {
+        service.Component = require(serverPath).default;
+        return service;
+      });
   });
   return Promise.all(fetches);
 };

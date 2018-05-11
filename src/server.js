@@ -10,14 +10,16 @@ const app = express();
 
 app.use(morgan('dev'));
 
+app.use(express.static('dist'));
+
 bundleLoader()
-  .then((bundles) => {
+  .then((services) => {
     app.use('/restaurants/:id', (req, res) => {
-      const body = bundles.map((bundle) => {
-        const ele = React.createElement(bundle);
-        return ReactDOM.renderToString(ele);
-      }).join('');
-      res.send(template(body));
+      services.forEach((service) => {
+        const ele = React.createElement(service.Component);
+        service.html = ReactDOM.renderToString(ele);
+      });
+      res.send(template(services));
     });
 
     app.listen(port, () => {
