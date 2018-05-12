@@ -4,24 +4,17 @@ const React = require('react');
 const ReactDOM = require('react-dom/server');
 const template = require('./template/index.js');
 const bundleLoader = require('./bundleLoader.js');
+const serverCore = require('./serverCore.js');
 
 const port = process.env.PORT || 3000;
-const app = express();
+app = serverCore.app;
 
 app.use(morgan('dev'));
 
 app.use(express.static('dist'));
 
-bundleLoader()
-  .then((services) => {
-    app.use('/restaurants/:id', (req, res) => {
-      services.forEach((service) => {
-        const ele = React.createElement(service.Component);
-        service.html = ReactDOM.renderToString(ele);
-      });
-      res.send(template(services));
-    });
-
+serverCore.startFetches()
+  .then(() => {
     app.listen(port, () => {
       console.log(`server running at: ${port}`);
     });
