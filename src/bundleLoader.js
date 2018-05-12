@@ -11,10 +11,16 @@ const loadBundles = () => {
   const fetches = services.map((service) => {
     const clientPath = path.join(__dirname, `../dist/bundles/${service.name}.js`);
     const serverPath = path.join(__dirname, `./services/${service.name}.js`);
+    const cssPath = path.join(__dirname, `../dist/bundles/${service.name}.css`);
 
     return fetch(service.clientUrl)
       .then(res => res.text())
       .then(text => writeFile(clientPath, text))
+
+      .then(() => fetch(service.cssUrl))
+      .then(res => res.text())
+      .then(text => writeFile(cssPath, text))
+
       .then(() => fetch(service.serverUrl))
       .then(res => res.text())
       .then(text => writeFile(serverPath, text))
