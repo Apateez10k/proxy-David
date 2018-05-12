@@ -1,6 +1,11 @@
 {
     "extends": "airbnb",
     "plugins": [
-        "react"
-    ]
+        "react",
+        "jest",
+    ],
+    "env": {
+      "node": true,
+      "jest/globals": true,
+    },
 }

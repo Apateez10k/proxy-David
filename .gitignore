@@ -4,4 +4,4 @@ node_modules/
 ## Compiled files ##
 dist/bundles/
 src/services/
-
+*.swp

@@ -9,8 +9,12 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.static('dist'));
 
+const clientPath = '../dist/bundles/';
+const serverPath = './services/';
+const cssPath = '../dist/bundles/';
+
 const startFetches = () => (
-  bundleLoader()
+  bundleLoader(clientPath, serverPath, cssPath)
     .then((services) => {
       app.use('/restaurants/:id', (req, res) => {
         services.forEach((service) => {
