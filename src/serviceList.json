@@ -1,0 +1,8 @@
+[
+  { 
+    "name": "ReviewsInfo", 
+    "clientUrl": "http://localhost:3003/restaurants/client.js", 
+    "serverUrl": "http://localhost:3003/restaurants/server.js", 
+    "cssUrl": "http://localhost:3003/restaurants/style.css"
+  }
+]
