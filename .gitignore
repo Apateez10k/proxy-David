@@ -5,3 +5,6 @@ node_modules/
 dist/bundles/
 src/services/
 *.swp
+
+## Jest ##
+coverage/
