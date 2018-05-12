@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 const express = require('express');
 const morgan = require('morgan');
 const React = require('react');

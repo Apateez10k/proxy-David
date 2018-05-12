@@ -1,10 +1,9 @@
-const fs = {};
-
-fs.writeFile = (file, data, callback) => {
-  fs[file] = data;
-  setTimeout(callback, 0);
+const fs = {
+  writeFile: (file, data, callback) => {
+    this[file] = data;
+    setTimeout(callback, 0);
+  },
+  mockWritten: file => this[file],
 };
-
-fs.mockWritten = file => fs[file];
 
 module.exports = fs;
