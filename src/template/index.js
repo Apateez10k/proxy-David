@@ -1,4 +1,4 @@
-module.exports = services => (
+const makeHtml = services => (
   `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -24,4 +24,6 @@ module.exports = services => (
     </script>
   </html> `
 );
+
+module.exports = makeHtml;
 
