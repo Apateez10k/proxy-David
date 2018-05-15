@@ -9,7 +9,7 @@
     "start:dev": "nodemon ./src/server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "stress": "wrk -d3m -t4 -c100 -s ./benchmarking/get.lua --timeout 2s http://localhost:3000/"
+    "stress": "wrk -d3m -t4 -c100 -s ./benchmarking/get.lua --timeout 2s http://ec2-18-144-1-46.us-west-1.compute.amazonaws.com/"
   },
   "repository": {
     "type": "git",

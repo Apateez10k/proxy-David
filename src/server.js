@@ -6,7 +6,11 @@ const { app } = serverCore;
 
 serverCore.startFetches()
   .then(() => {
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', (err) => {
+      if (err) {
+        app.log.error(err);
+        process.exit(1);
+      }
       console.log(`server running at: ${port}`);
     });
   });
