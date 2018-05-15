@@ -8,7 +8,8 @@
     "start": "node ./src/server.js",
     "start:dev": "nodemon ./src/server.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "stress": "wrk -d3m -t4 -c100 -s ./benchmarking/get.lua --timeout 2s http://localhost:3000/"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "moment": "^2.22.0",
     "mongoose": "^5.0.14",
     "morgan": "^1.9.0",
+    "newrelic": "^4.1.0",
     "node-fetch": "^2.1.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
