@@ -34,6 +34,7 @@
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.11",
     "express": "^4.16.2",
+    "fastify": "^1.4.0",
     "jquery": "^3.1.1",
     "moment": "^2.22.0",
     "mongoose": "^5.0.14",
@@ -50,6 +51,7 @@
     "react-native-view-more-text": "^1.4.3",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
+    "serve-static": "^1.13.2",
     "style-loader": "^0.20.3",
     "webpack": "^3.11.0"
   },
