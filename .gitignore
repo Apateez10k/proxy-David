@@ -8,3 +8,6 @@ src/services/
 
 ## Jest ##
 coverage/
+
+## Other ##
+newrelic_agent.log

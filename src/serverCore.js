@@ -1,14 +1,16 @@
 /* eslint no-param-reassign: 0 */
-const express = require('express');
+const path = require('path');
+const fastify = require('fastify');
 const morgan = require('morgan');
 const React = require('react');
 const ReactDOM = require('react-dom/server');
 const template = require('./template/index.js');
 const bundleLoader = require('./bundleLoader.js');
+const serveStatic = require('serve-static');
 
-const app = express();
+const app = fastify();
+app.use('/', serveStatic(path.join(__dirname, '../dist')));
 app.use(morgan('dev'));
-app.use(express.static('dist'));
 
 const clientPath = '../dist/bundles/';
 const serverPath = './services/';
@@ -17,12 +19,15 @@ const cssPath = '../dist/bundles/';
 const startFetches = () => (
   bundleLoader(clientPath, serverPath, cssPath)
     .then((services) => {
-      app.use('/restaurants/:id', (req, res) => {
+      app.get('/restaurants/:id', (req, res) => {
         services.forEach((service) => {
           const ele = React.createElement(service.Component);
           service.html = ReactDOM.renderToString(ele);
         });
-        res.send(template(services));
+        res
+          .code(200)
+          .header('Content-Type', 'text/html')
+          .send(template(services));
       });
     })
 );

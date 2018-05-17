@@ -13,17 +13,22 @@ const loadBundles = (clientPath, serverPath, cssPath) => {
     const serverFile = path.join(__dirname, `${serverPath}${service.name}.js`);
     const cssFile = path.join(__dirname, `${cssPath}${service.name}.css`);
 
-    return fetch(service.clientUrl)
+    const options = { timeout: 5000 };
+
+    return fetch(service.clientUrl, options)
       .then(res => res.text())
       .then(text => writeFile(clientFile, text))
 
-      .then(() => fetch(service.cssUrl))
+      .then(() => fetch(service.cssUrl, options))
       .then(res => res.text())
       .then(text => writeFile(cssFile, text))
 
-      .then(() => fetch(service.serverUrl))
+      .then(() => fetch(service.serverUrl, options))
       .then(res => res.text())
       .then(text => writeFile(serverFile, text))
+      .catch(() => {
+        console.log('Download failed. Using existing files.');
+      })
       .then(() => {
         service.Component = require(serverFile).default;
         return service;
